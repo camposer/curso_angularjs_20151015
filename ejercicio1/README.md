@@ -18,7 +18,7 @@ Repasar los conceptos básicos de JavaScript y orientación a objetos
 Pista:
 ```
 function ProductoUtil() {
-	var productos;
+	var productos = [];
 
 	this.obtenerProductos = function() { 
 		return productos; 	
