@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script>
+			var a = 2;
+			var b = 3;
+
+			var numeros = [ "cero", "uno", "dos" ];
+			numeros.push("tres");
+			numeros[numeros.length] = "cuatro";
+
+			var imprimir1 = function() {
+				var i = 0;
+				for (;;)
+					if (numeros.length <= i)
+						break;
+					else 
+						document.writeln(i + ". " + numeros[i++] + "<br>");
+			};
+
+			var imprimir = function() {
+				for (var i in numeros)
+					document.writeln(i + ". " + numeros[i] + "<br>");
+			};
+
+			function sumar(a, b) {
+				return a + b;
+			}
+
+			var multiplicar = function(a, b) {
+				return a * b;
+			};
+			
+			var saludar = function(nombre) {
+				document.writeln("Hola " + nombre);
+			};
+
+			var c = sumar(2, 3);
+
+			document.writeln("2 + 3 = " + c + "<br>");
+			document.writeln("2 * 3 = " + multiplicar(a, b) + "<br>"); 
+			document.writeln(saludar("Juan"));     
+			imprimir();
+		</script>
+
+	</head>
+	<body>
+	</body>
+</html>

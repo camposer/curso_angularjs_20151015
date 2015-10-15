@@ -1,0 +1,69 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<script>
+		function Persona(_nombre, _apellido) {
+			var id;
+			var nombre = _nombre;
+			var apellido = _apellido;
+
+			this.setId = function(i) { id = i; };
+			this.getId = function() { return id; };
+			this.setNombre = function(n) { nombre = n; };
+			this.getNombre = function() { return nombre; };
+			this.setApellido = function(a) { apellido = a; };
+			this.getApellido = function() { return apellido; };
+			this.toString = function() {
+				return "[ id = " + id +
+					", nombre = " + nombre +
+					", apellido = " + apellido + "]";
+			};
+		}
+
+		var p1 = new Persona("Juan", "Pérez");
+		p1.reir = function() {
+			document.writeln("Estoy riendo...<br>");
+		};
+		
+		var miLlorar = function() {
+			document.writeln("Estoy llorando...<br>");
+		};
+		
+		var personas = [
+			p1,
+			new Persona("María", "García")
+		];
+		personas.push(new Persona("Carlos", "Ramírez"));
+
+		Persona.prototype.saludar = function() {
+			document.writeln("Hola " + this.getNombre() + "<br>");
+		}
+	
+		for (var i in personas)  {
+			document.writeln(personas[i] + "<br>");
+			document.writeln("nombre = " + personas[i].getNombre() + "<br>");
+			if (typeof personas[i].reir != 'undefined')
+				personas[i].reir();
+			personas[i].saludar();
+			personas[i].llorar = miLlorar;
+			personas[i].llorar();
+	
+		}
+			
+
+	</script>
+</head>
+<body>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
