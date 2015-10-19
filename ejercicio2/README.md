@@ -1,37 +1,31 @@
-Ejercicio #2
+Ejercicio #1
 ============
 
 ##Objetivo
 
-Repasar los conceptos básicos de JavaScript, orientación a objetos, JSON, DOM, HTML y CSS
+Repasar los conceptos básicos de JavaScript y orientación a objetos
 
 ##Actividades
 
-0. Cree una interfaz que permita gestionar Productos (CRUD+) para que funcione únicamente con JavaScript. Debe utilizar la clase ProductoUtil (ejercicio anterior). Los objetos dinámicos deben ser mostrados en pantalla con DOM.
+0. Cree una clase Producto con los siguientes atributos: id, nombre, precio y cantidad. 
+0. Cree una clase ProductoUtil que ofrezca las 4 operaciones CRUD+ (Create-Update-Read-Delete-List) sobre Producto: 
+	- agregar(p : Producto) : void
+	- modificar(p : Producto) : void
+	- eliminar(id : Long) : void
+	- obtener(id : Long) : Producto
+	- obtenerTodos() : Producto[]
 
-Orden sugerido de trabajo:
-- Listar productos
-- Agregar
-- Eliminar
-- Mostrar
-- Modificar
-
-NOTA: En el PDF adjunto (ejercicio2.pdf) podrá conseguir un mockup simple de la interfaz.
-
-0. Modifique la clase ProductoUtil y producto.html para que funcione con objetos simples (JSON).
-Pista: quitar el archivo producto.js
-
-Esto:
+Pista:
 ```
-var p = new Producto(tal, tal);
+function ProductoUtil() {
+	var productos = [];
+
+	this.obtenerProductos = function() { 
+		return productos; 	
+	};
+		
+	// ...
+}
 ```
 
-Cambiaría por esto:
-```
-var p = {
-	nombre: tal,
-	precio: tal
-};
-window.alert(p.nombre) // => tal
-window.alert(p["nombre"]) // => tal
-```
+0. Probar las funciones de la clase ProductoUtil en un html
