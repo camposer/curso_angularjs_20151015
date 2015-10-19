@@ -28,12 +28,19 @@
 				  		"<td>" + p.getId() + "</td>" +
 				  		"<td>" + p.getNombre() + "</td>" +
 				  		"<td>" + p.getPrecio() + "</td>" +
-				  		"<td><a href>mostrar</a></td>" +
+				  		"<td><a href='javascript:mostrar(" + p.getId() + ")'>mostrar</a></td>" +
 				  		"<td><a href='javascript:eliminar(" + p.getId() + ")' onclick='return confirm(\"Eliminar?\")'>eliminar</a></td>"+ 
 			  		"</tr>";
 		  	}
 
 			tbody.innerHTML = html;
+		};
+
+		var mostrar = function(id) {
+			var p = productoUtil.obtener(id);
+			document.getElementById("id").value = p.getId();
+			document.getElementById("nombre").value = p.getNombre();
+			document.getElementById("precio").value = p.getPrecio();
 		};
 
 		var eliminar = function(id) {
@@ -42,15 +49,30 @@
 		};
 
 		var guardar = function() {
+			var id = document.getElementById("id").value;
 			var nombre = document.getElementById("nombre").value;
 			var precio = document.getElementById("precio").value;
 
 			// TODO Mejorar validaciones!
 			if (nombre && precio) {
 				var p = new Producto(nombre, precio);
-				productoUtil.agregar(p);
+
+				if (id) {
+					p.setId(id);
+					productoUtil.modificar(p);
+				} else {
+					productoUtil.agregar(p);
+				}
+
+				limpiarForm();
 				imprimir();
 			}
+		};
+
+		var limpiarForm = function() {
+			document.getElementById("id").value  = "";
+			document.getElementById("nombre").value = "";
+			document.getElementById("precio").value = "";
 		};
 
 		var init = function() {
@@ -65,6 +87,7 @@
 		<h1 class="text-center">Productos</h1>
 
 		<form class="form-horizontal">
+	      <input type="hidden" class="form-control" id="id">
 
 		  <div class="form-group">
 		    <label for="nombre" class="col-sm-2 control-label">Nombre</label>
