@@ -23,17 +23,34 @@
 
 			for (var i in productos) {
 				var p = productos[i];
-				
+
 				html += "<tr>" +
 				  		"<td>" + p.getId() + "</td>" +
 				  		"<td>" + p.getNombre() + "</td>" +
 				  		"<td>" + p.getPrecio() + "</td>" +
 				  		"<td><a href>mostrar</a></td>" +
-				  		"<td><a href>eliminar</a></td>"+ 
+				  		"<td><a href='javascript:eliminar(" + p.getId() + ")' onclick='return confirm(\"Eliminar?\")'>eliminar</a></td>"+ 
 			  		"</tr>";
 		  	}
 
 			tbody.innerHTML = html;
+		};
+
+		var eliminar = function(id) {
+			productoUtil.eliminar(id);
+			imprimir();
+		};
+
+		var guardar = function() {
+			var nombre = document.getElementById("nombre").value;
+			var precio = document.getElementById("precio").value;
+
+			// TODO Mejorar validaciones!
+			if (nombre && precio) {
+				var p = new Producto(nombre, precio);
+				productoUtil.agregar(p);
+				imprimir();
+			}
 		};
 
 		var init = function() {
@@ -65,7 +82,7 @@
 
 		  <div class="form-group">
 		    <div class="col-sm-offset-2 col-sm-10">
-		      <button type="submit" class="btn btn-default">Guardar</button>
+		      <button type="button" class="btn btn-default" onclick="guardar()">Guardar</button>
 		    </div>
 		  </div>
 		</form>
