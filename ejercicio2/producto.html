@@ -8,12 +8,42 @@
 	<script>
 		var productoUtil = new ProductoUtil();
 
-		productoUtil.agregar(new Producto("TV", 700));
-		productoUtil.agregar(new Producto("Cámara", 500));
-		productoUtil.agregar(new Producto("Ordenador", 800));
+		var initProductoUtil = function() {
+			productoUtil.agregar(new Producto("TV", 700));
+			productoUtil.agregar(new Producto("Cámara", 500));
+			productoUtil.agregar(new Producto("Ordenador", 800));
+		};
+
+		// TODO Refactorizar con JSRender
+		var imprimir = function() {
+			var tbody = document.getElementById('tbodyProductos');
+			var productos = productoUtil.obtenerTodos();
+
+			var html = "";
+
+			for (var i in productos) {
+				var p = productos[i];
+				
+				html += "<tr>" +
+				  		"<td>" + p.getId() + "</td>" +
+				  		"<td>" + p.getNombre() + "</td>" +
+				  		"<td>" + p.getPrecio() + "</td>" +
+				  		"<td><a href>mostrar</a></td>" +
+				  		"<td><a href>eliminar</a></td>"+ 
+			  		"</tr>";
+		  	}
+
+			tbody.innerHTML = html;
+		};
+
+		var init = function() {
+			initProductoUtil();
+			imprimir();
+		};
+
 	</script>
 </head>
-<body>
+<body onload="init()">
 	<div class="container">
 		<h1 class="text-center">Productos</h1>
 
@@ -52,21 +82,7 @@
 		  		<th>Eliminar</th>
 		  	</tr>
 		  </thead>
-		  <tbody>
-		  	<tr>
-		  		<td>xxx</td>
-		  		<td>xxx</td>
-		  		<td>xxx</td>
-		  		<td><a href>mostrar</a></td>
-		  		<td><a href>eliminar</a></td>
-		  	</tr>
-		  	<tr>
-		  		<td>xxx</td>
-		  		<td>xxx</td>
-		  		<td>xxx</td>
-		  		<td><a href>mostrar</a></td>
-		  		<td><a href>eliminar</a></td>
-		  	</tr>
+		  <tbody id="tbodyProductos">
 		  </tbody>
 		</table>	
 	</div>
