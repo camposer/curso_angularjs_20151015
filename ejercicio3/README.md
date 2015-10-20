@@ -7,10 +7,13 @@ Repasar los conceptos de AJAX y AngularJS.
 
 ##Instrucciones
 
+- Descargar el repositorio
+- Instalar Node (para Windows instalador MSI)
 - Este ejercicio3 tiene una API Rest implementada con NodeJS sobre Express
 - Para iniciar el proyecto en Windows:
 ```
-C:EJERCICIO3> node_64.exe app
+C:EJERCICIO3> npm install
+C:EJERCICIO3> node app
 ```
 - Para ver cómo funciona la API puede consultar el fichero curl.sh
 - Un mockup (espantoso) del ejercicio puede conseguirlo en ejercicio3.pdf
