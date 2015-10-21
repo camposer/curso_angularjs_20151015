@@ -1,0 +1,132 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="/stylesheets/bootstrap.css">
+
+	<script src="/javascripts/ProductoUtil.js"></script>
+	<script src="/javascripts/jquery-1.10.2.js"></script>
+
+	<script>
+		var productoUtil = new ProductoUtil();
+
+		// TODO Refactorizar con JSRender
+		var imprimir = function() {
+			productoUtil.obtenerTodos(function(productos) {
+				var html = "";
+
+				for (var i in productos) {
+					var p = productos[i];
+
+					html += "<tr>" +
+					  		"<td>" + p.id + "</td>" +
+					  		"<td>" + p.nombre + "</td>" +
+					  		"<td>" + p.precio + "</td>" +
+					  		"<td><a href='javascript:mostrar(" + p.id + ")'>mostrar</a></td>" +
+					  		"<td><a href='javascript:eliminar(" + p.id + ")' onclick='return confirm(\"Eliminar?\")'>eliminar</a></td>"+ 
+				  		"</tr>";
+			  	}
+				$("#tablaProductos tbody").html(html);
+			});
+		};
+
+		var mostrar = function(id) {
+			var p = productoUtil.obtener(id);
+			document.getElementById("id").value = p.id;
+			document.getElementById("nombre").value = p.nombre;
+			document.getElementById("precio").value = p.precio;
+		};
+
+		var eliminar = function(id) {
+			productoUtil.eliminar(id);
+			imprimir();
+		};
+
+		var guardar = function() {
+			var id = document.getElementById("id").value;
+			var nombre = document.getElementById("nombre").value;
+			var precio = document.getElementById("precio").value;
+
+			// TODO Mejorar validaciones!
+			if (nombre && precio) {
+				var p = {
+					"nombre": nombre, 
+					precio: precio
+				};
+
+				if (id) {
+					p.id = id;
+					productoUtil.modificar(p);
+				} else {
+					productoUtil.agregar(p);
+				}
+
+				limpiarForm();
+				imprimir();
+			}
+		};
+
+		var limpiarForm = function() {
+			document.getElementById("id").value  = "";
+			document.getElementById("nombre").value = "";
+			document.getElementById("precio").value = "";
+		};
+
+		var init = function() {
+			imprimir();
+		};
+
+	</script>
+</head>
+<body onload="init()">
+	<div class="container">
+		<h1 class="text-center">Productos</h1>
+
+		<form class="form-horizontal">
+	      <input type="hidden" class="form-control" id="id">
+
+		  <div class="form-group">
+		    <label for="nombre" class="col-sm-2 control-label">Nombre</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		    <label for="precio" class="col-sm-2 control-label">Precio</label>
+		    <div class="col-sm-10">
+		      <input type="number" class="form-control" id="precio" placeholder="Precio">
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <button type="button" class="btn btn-default" onclick="guardar()">Guardar</button>
+		    </div>
+		  </div>
+		</form>
+	
+		<hr>
+
+		<table id="tablaProductos" class="table table-striped">
+		  <thead>
+		  	<tr>
+		  		<th>Id</th>
+		  		<th>Nombre</th>
+		  		<th>Precio</th>
+		  		<th>Mostrar</th>
+		  		<th>Eliminar</th>
+		  	</tr>
+		  </thead>
+		  <tbody>
+		  </tbody>
+		</table>	
+	</div>
+
+	<script src="/javascripts/bootstrap.js"></script>
+</body>
+</html>
+
+
+
+
+
