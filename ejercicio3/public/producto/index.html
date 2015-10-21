@@ -30,45 +30,47 @@
 		};
 
 		var mostrar = function(id) {
-			var p = productoUtil.obtener(id);
-			document.getElementById("id").value = p.id;
-			document.getElementById("nombre").value = p.nombre;
-			document.getElementById("precio").value = p.precio;
+			productoUtil.obtener(id, function(p) {
+				$("#id").val(p.id);
+				$("#nombre").val(p.nombre);
+				$("#precio").val(p.precio);
+			});
 		};
 
 		var eliminar = function(id) {
-			productoUtil.eliminar(id);
-			imprimir();
+			productoUtil.eliminar(id, imprimir);
 		};
 
 		var guardar = function() {
-			var id = document.getElementById("id").value;
-			var nombre = document.getElementById("nombre").value;
-			var precio = document.getElementById("precio").value;
+			var id = $("#id").val();
+			var nombre = $("#nombre").val();
+			var precio = $("#precio").val();
+
+			var callback = function() {
+				limpiarForm();
+				imprimir();
+			};
 
 			// TODO Mejorar validaciones!
 			if (nombre && precio) {
 				var p = {
-					"nombre": nombre, 
+					nombre: nombre, 
 					precio: precio
 				};
 
 				if (id) {
 					p.id = id;
-					productoUtil.modificar(p);
+					productoUtil.modificar(p, callback);
 				} else {
-					productoUtil.agregar(p);
+					productoUtil.agregar(p, callback);
 				}
-
-				limpiarForm();
-				imprimir();
 			}
 		};
 
 		var limpiarForm = function() {
-			document.getElementById("id").value  = "";
-			document.getElementById("nombre").value = "";
-			document.getElementById("precio").value = "";
+			$("#id").val("");
+			$("#nombre").val("");
+			$("#precio").val("");
 		};
 
 		var init = function() {
