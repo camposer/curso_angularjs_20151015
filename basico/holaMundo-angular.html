@@ -2,11 +2,13 @@
 <head>
 	<meta charset="utf-8">
 </head>
-<body>
+<body ng-controller="HolaMundoController as ctrl">
 	{{ "hola" + " " + "mundo" }}
-	<div ng-controller="HolaMundoController as ctrl">
-		nombre = {{ctrl.producto.nombre}}<br>
-		precio = {{ctrl.producto.precio}}
+	<div ng-repeat="producto in ctrl.productos">
+		<span ng-show="producto.cantidad > 0">
+			nombre = {{producto.nombre}}<br>
+			precio = {{producto.precio}}
+		</span>
 	</div>
 	<script src="angular.js"></script>
 	<script>
@@ -15,8 +17,23 @@
 			.controller('HolaMundoController', function() {
 				this.producto = {
 					nombre: 'TV',
-					precio: 200
+					precio: 200,
+					cantidad: 0
 				};
+
+				this.productos = [
+					this.producto,
+					{
+						nombre: 'Cámara',
+						precio: 300,
+						cantidad: 2
+					},
+					{
+						nombre: 'DVD',
+						precio: 300,
+						cantidad: 3
+					}
+				]
 			});
 	</script>
 </body>
