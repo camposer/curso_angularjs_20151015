@@ -2,15 +2,21 @@
 <head>
 	<meta charset="utf-8">
 	<style>
-		.fondoverde { background-color: green; }
-		.letrasrojas { color: red; }
+		.fondo-verde { background-color: green; }
+		.letras-rojas { color: red; }
 	</style>
 </head>
 <body ng-controller="HolaMundoController as ctrl">
-	{{ "hola" + " " + "mundo" }}
+	<p>{{ "hola" + " " + "mundo" }}</p>
+	
+	Nombre: <input type="text" ng-model="ctrl.producto.nombre"><br>
+	Precio: <input type="number" ng-model="ctrl.producto.precio"><br>
+	Cantidad: <input type="number" ng-model="ctrl.producto.cantidad"><br>
+	<input type="button" ng-click="ctrl.agregarProducto()" value="Agregar"><br>
+
 	<ul>
 		<li ng-repeat="producto in ctrl.productos | orderBy:'-precio'" ng-click="ctrl.mensajeProducto(producto)">
-			<span ng-class="{ fondoverde:true, letrasrojas:ctrl.isProductoAgotado(producto)}">
+			<span ng-class="{ 'fondo-verde':true, 'letras-rojas':ctrl.isProductoAgotado(producto) }">
 			nombre = {{producto.nombre}}<br>
 			precio = {{producto.precio | currency:'€'}}
 			</span>
@@ -22,21 +28,27 @@
 		angular
 			.module('holaMundo', [])
 			.controller('HolaMundoController', function() {
-				this.mensajeProducto = function(producto) {
-					window.alert(producto.nombre);
+				this.producto = { };
+				
+				this.agregarProducto = function() {
+					this.productos.push(angular.copy(this.producto));
+					this.producto = {};
 				};
+
+				this.mensajeProducto = function(producto) {
+					window.alert('Producto = ' + producto.nombre);
+				};
+
 				this.isProductoAgotado = function(producto) {
 					return (producto.cantidad <= 0);
 				};
 	
-				this.producto = {
-					nombre: 'TV',
-					precio: 200,
-					cantidad: 0
-				};
-
 				this.productos = [
-					this.producto,
+					{
+                        	                nombre: 'TV',
+                	                        precio: 200,
+        	                                cantidad: 0
+	                                },
 					{
 						nombre: 'Cámara',
 						precio: 300,
