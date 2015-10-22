@@ -1,0 +1,23 @@
+<html ng-app="holaMundo">
+<head>
+	<meta charset="utf-8">
+</head>
+<body>
+	{{ "hola" + " " + "mundo" }}
+	<div ng-controller="HolaMundoController as ctrl">
+		nombre = {{ctrl.producto.nombre}}<br>
+		precio = {{ctrl.producto.precio}}
+	</div>
+	<script src="angular.js"></script>
+	<script>
+		angular
+			.module('holaMundo', [])
+			.controller('HolaMundoController', function() {
+				this.producto = {
+					nombre: 'TV',
+					precio: 200
+				};
+			});
+	</script>
+</body>
+</html>
