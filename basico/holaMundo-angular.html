@@ -1,20 +1,34 @@
 <html ng-app="holaMundo">
 <head>
 	<meta charset="utf-8">
+	<style>
+		.fondoverde { background-color: green; }
+		.letrasrojas { color: red; }
+	</style>
 </head>
 <body ng-controller="HolaMundoController as ctrl">
 	{{ "hola" + " " + "mundo" }}
-	<div ng-repeat="producto in ctrl.productos">
-		<span ng-show="producto.cantidad > 0">
+	<ul>
+		<li ng-repeat="producto in ctrl.productos | orderBy:'-precio'" ng-click="ctrl.mensajeProducto(producto)">
+			<span ng-class="{ fondoverde:true, letrasrojas:ctrl.isProductoAgotado(producto)}">
 			nombre = {{producto.nombre}}<br>
-			precio = {{producto.precio}}
-		</span>
-	</div>
+			precio = {{producto.precio | currency:'€'}}
+			</span>
+		</li>
+	<ul>
+
 	<script src="angular.js"></script>
 	<script>
 		angular
 			.module('holaMundo', [])
 			.controller('HolaMundoController', function() {
+				this.mensajeProducto = function(producto) {
+					window.alert(producto.nombre);
+				};
+				this.isProductoAgotado = function(producto) {
+					return (producto.cantidad <= 0);
+				};
+	
 				this.producto = {
 					nombre: 'TV',
 					precio: 200,
@@ -30,7 +44,7 @@
 					},
 					{
 						nombre: 'DVD',
-						precio: 300,
+						precio: 800,
 						cantidad: 3
 					}
 				]
