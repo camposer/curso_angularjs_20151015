@@ -1,0 +1,71 @@
+<html ng-app="tienda">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="/stylesheets/bootstrap.css">
+</head>
+<body ng-controller="ProductoController">
+	<div class="container">
+		<h1 class="text-center">Productos</h1>
+
+		<form class="form-horizontal">
+	      <input type="hidden" class="form-control" id="id">
+
+		  <div class="form-group">
+		    <label for="nombre" class="col-sm-2 control-label">Nombre</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		    <label for="precio" class="col-sm-2 control-label">Precio</label>
+		    <div class="col-sm-10">
+		      <input type="number" class="form-control" id="precio" placeholder="Precio">
+		    </div>
+		  </div>
+
+		  <div class="form-group">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <button type="button" class="btn btn-default" onclick="guardar()">Guardar</button>
+		    </div>
+		  </div>
+		</form>
+	
+		<hr>
+
+		<table id="tablaProductos" class="table table-striped">
+		  <thead>
+		  	<tr>
+		  		<th>Id</th>
+		  		<th>Nombre</th>
+		  		<th>Precio</th>
+		  		<th>Mostrar</th>
+		  		<th>Eliminar</th>
+		  	</tr>
+		  </thead>
+		  <tbody>
+		  	<tr ng-repeat="p in productos">
+		  		<td>{{ p.id }}</td>
+		  		<td>{{ p.nombre }}</td>
+		  		<td>{{ p.precio }}</td>
+		  		<td><a href>mostrar</a></td>
+		  		<td><a href>eliminar</a></td>
+		  	</tr>
+		  </tbody>
+		</table>	
+	</div>
+
+	<script src="/javascripts/jquery-1.10.2.js"></script>
+	<script src="/javascripts/bootstrap.js"></script>
+	<script src="/javascripts/angular.js"></script>
+
+	<script src="/javascripts/app.js"></script>
+	<script src="/javascripts/controller/producto.js"></script>
+	<script src="/javascripts/service/producto.js"></script>
+</body>
+</html>
+
+
+
+
+
