@@ -1,19 +1,17 @@
+'use strict';
+
 (function() {
 	angular
 		.module('tienda')
 		.controller('ProductoController', [ '$scope', 'ProductoService', ProductoController ]);
 
-	var ProductoController = function($scope, productoService) {
-
-		var init = function() {
-			console.log('init');
+	function ProductoController($scope, productoService) {
+		$scope.init = function() {
 			productoService.obtenerTodos(function(productos) {
-				console.log('callback');
 				$scope.productos = productos;
-				$scope.$apply();
+				$scope.$apply(); // actualiza la vista para los cambios realizados sobre el scope!
 			});
 		};
-
-		init();
 	};
+
 })();

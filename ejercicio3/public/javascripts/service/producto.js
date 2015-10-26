@@ -1,9 +1,11 @@
+'use strict';
+
 (function() {
 	angular
 		.module('tienda')
 		.service('ProductoService', ProductoService);
 
-	var ProductoService = function() {
+	function ProductoService() {
 		var URL_BASE = "/productos";
 
 		this.agregar = function(p, callback) {
