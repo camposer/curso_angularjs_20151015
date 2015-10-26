@@ -6,19 +6,21 @@
 		.letras-rojas { color: red; }
 	</style>
 </head>
-<body ng-controller="HolaMundoController as ctrl">
+<body ng-controller="HolaMundoController">
 	<p>{{ "hola" + " " + "mundo" }}</p>
 	
-	Nombre: <input type="text" ng-model="ctrl.producto.nombre"><br>
-	Precio: <input type="number" ng-model="ctrl.producto.precio"><br>
-	Cantidad: <input type="number" ng-model="ctrl.producto.cantidad"><br>
-	<input type="button" ng-click="ctrl.agregarProducto()" value="Agregar"><br>
+	Nombre: <input type="text" ng-model="producto.nombre"><br>
+	Precio: <input type="number" ng-model="producto.precio"><br>
+	Cantidad: <input type="number" ng-model="producto.cantidad"><br>
+	<input type="button" ng-click="agregarProducto()" value="Agregar"><br>
+	
+	<span ng-controller="NuevoScopeController"></span>
 
 	<ul>
-		<li ng-repeat="producto in ctrl.productos | orderBy:'-precio'" ng-click="ctrl.mensajeProducto(producto)">
-			<span ng-class="{ 'fondo-verde':true, 'letras-rojas':ctrl.isProductoAgotado(producto) }">
-			nombre = {{producto.nombre}}<br>
-			precio = {{producto.precio | currency:'€'}}
+		<li ng-repeat="producto in productos | orderBy:'-precio'" ng-click="mensajeProducto(producto)">
+			<span ng-class="{ 'fondo-verde':true, 'letras-rojas':isProductoAgotado(producto) }">
+			nombre = {{::producto.nombre}}<br>
+			precio = {{::producto.precio | currency:'€'}}
 			</span>
 		</li>
 	<ul>
@@ -27,28 +29,41 @@
 	<script>
 		angular
 			.module('holaMundo', [])
-			.controller('HolaMundoController', function() {
-				this.producto = { };
+			.controller('NuevoScopeController', ['$rootScope', function($rootScope) {
+				$rootScope.productos = [
+					{
+						nombre: 'TV',
+						precio: 200,
+						cantidad: 0
+					}
+				];
+			}])
+			.controller('HolaMundoController', ['$scope', '$rootScope', function($scope, $rootScope) {
+				$scope.producto = { };
 				
-				this.agregarProducto = function() {
-					this.productos.push(angular.copy(this.producto));
-					this.producto = {};
+				$scope.agregarProducto = function() {
+					// Forzando asincronía
+					setTimeout(function() {
+						$rootScope.productos.push($scope.producto);
+						$scope.$apply(); // Refresca los cambios en la vista
+					}, 1000);
+					$scope.producto = {};
 				};
 
-				this.mensajeProducto = function(producto) {
+				$scope.mensajeProducto = function(producto) {
 					window.alert('Producto = ' + producto.nombre);
 				};
 
-				this.isProductoAgotado = function(producto) {
+				$scope.isProductoAgotado = function(producto) {
 					return (producto.cantidad <= 0);
 				};
-	
-				this.productos = [
+/*	
+				$scope.productos = [
 					{
-                        	                nombre: 'TV',
-                	                        precio: 200,
-        	                                cantidad: 0
-	                                },
+						nombre: 'TV',
+						precio: 200,
+						cantidad: 0
+					},
 					{
 						nombre: 'Cámara',
 						precio: 300,
@@ -60,7 +75,8 @@
 						cantidad: 3
 					}
 				]
-			});
+*/
+			}]);
 	</script>
 </body>
 </html>
