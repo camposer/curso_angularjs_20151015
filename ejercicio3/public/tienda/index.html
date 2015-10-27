@@ -53,9 +53,9 @@
 		  </thead>
 		  <tbody>
 		  	<tr ng-repeat="p in productos">
-		  		<td>{{ p.id }}</td>
-		  		<td>{{ p.nombre }}</td>
-		  		<td>{{ p.precio }}</td>
+		  		<td>{{ ::p.id }}</td>
+		  		<td>{{ ::p.nombre }}</td>
+		  		<td>{{ ::p.precio }}</td>
 		  		<td><a href ng-click="mostrar(p)">mostrar</a></td>
 		  		<td><a href ng-click="eliminar(p.id)">eliminar</a></td>
 		  	</tr>

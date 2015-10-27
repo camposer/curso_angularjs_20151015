@@ -34,10 +34,15 @@
 				$scope.errores.push('Precio inválido')
 
 			if ($scope.errores.length == 0) {
+				var p = {
+					nombre: $scope.producto.nombre,
+					precio: $scope.producto.precio
+				};
 				if ($scope.producto.id) {
-					productoService.modificar($scope.producto, callback);
+					p.id = $scope.producto.id;
+					productoService.modificar(p, callback);
 				} else {
-					productoService.agregar($scope.producto, callback);
+					productoService.agregar(p, callback);
 				}
 			}
 
