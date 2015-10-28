@@ -21,19 +21,19 @@
 			listar();
 		};
 
-		$scope.guardar = function() {
+		$scope.guardar = function(form) {
 			var callback = function() {
 				limpiarForm();
 				listar();
 			};
 
 			$scope.errores = [];
-			if (!$scope.producto.nombre) // TODO mejorar validación
+			if (form.nombre.$invalid) // TODO mejorar validación
 				$scope.errores.push('Nombre inválido')
-			if (!$scope.producto.precio && !angular.isNumber($scope.producto.precio)) // TODO mejorar validación
+			if (form.precio.$invalid) // TODO mejorar validación
 				$scope.errores.push('Precio inválido')
 
-			if ($scope.errores.length == 0) {
+			if (form.$valid) {
 				var p = {
 					nombre: $scope.producto.nombre,
 					precio: $scope.producto.precio
