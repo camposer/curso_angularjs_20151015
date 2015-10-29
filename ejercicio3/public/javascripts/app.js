@@ -1,5 +1,5 @@
 'use strict';
 
 (function() {
-	angular.module('tienda', []);	
+	angular.module('tienda', [ 'ngRoute' ]);	
 })();

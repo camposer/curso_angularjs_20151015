@@ -16,10 +16,12 @@
 			$scope.producto = {};
 		};
 
-		$scope.init = function() {
+		var init = function() {
 			listar();
 		};
 
+		init();
+		
 		$scope.guardar = function(form) {
 			var callback = function() {
 				limpiarForm();
