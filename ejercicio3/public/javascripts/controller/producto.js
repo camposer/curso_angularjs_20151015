@@ -7,9 +7,8 @@
 
 	function ProductoController($scope, productoService) {
 		var listar = function() {
-			productoService.obtenerTodos(function(productos) {
-				$scope.productos = productos;
-				$scope.$apply(); // actualiza la vista para los cambios realizados sobre el scope!
+			productoService.obtenerTodos(function(resp) {
+				$scope.productos = resp.data;
 			});
 		};
 

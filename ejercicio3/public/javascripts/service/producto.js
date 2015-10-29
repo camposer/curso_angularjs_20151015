@@ -3,45 +3,49 @@
 (function() {
 	angular
 		.module('tienda')
-		.service('ProductoService', ProductoService);
+		.service('ProductoService', [ '$http', ProductoService ]);
 
-	function ProductoService() {
+	function ProductoService($http) {
 		var URL_BASE = "/productos";
 
-		this.agregar = function(p, callback) {
-			$.ajax(URL_BASE, {
-				type: "post",
-				contentType: "application/json",
-				data: JSON.stringify(p)
-			}).done(callback);
+		this.agregar = function(p, success, error) {
+			$http({
+				url: URL_BASE, 
+				method: "post",
+				data: p
+			}).then(success, error)
 		};
 
-		this.modificar = function(p, callback) {
-			$.ajax(URL_BASE + "/" + p.id, {
-				type: "put",
-				contentType: "application/json",
-				data: JSON.stringify(p)
-			}).done(callback);
+		this.modificar = function(p, success, error) {
+			$http({
+				url: URL_BASE + "/" + p.id, 
+				method: "put",
+				data: p
+			}).then(success, error);
 		};
 
-		this.eliminar = function(id, callback) {
-			$.ajax(URL_BASE + "/" + id, {
-				type: "delete"
-			}).done(callback);
+		this.eliminar = function(id, success, error) {
+			$http({
+				url: URL_BASE + "/" + id, 
+				method: "delete"
+			}).then(success, error);
 		};
 
-		this.obtener = function(id, callback) {
-			$.ajax(URL_BASE + "/" + id, { 
-				type: 'GET',
-				dataType: 'json' 
-			}).done(callback);
+		this.obtener = function(id, success, error) {
+			$http({
+				url: URL_BASE + "/" + id, 
+				method: "get"
+			}).then(success, error);
 		};
 
-		this.obtenerTodos = function(llamamePaTras) { 
-			$.ajax(URL_BASE, { 
-				type: 'GET',
-				dataType: 'json' 
-			}).done(llamamePaTras);
+		this.obtenerTodos = function(success, error) { 
+			$http({
+				url: URL_BASE, 
+				method: 'GET'
+			}).then(success, error); // resp.data
+
+			// $http.get(URL_BASE).then(success, error); // resp.data
+			// $http.get(URL_BASE).success(success); // resp => data
 		};
 		
 	};
