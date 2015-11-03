@@ -7,18 +7,22 @@
 
 	function CarritoService($rootScope) {
 		this.agregarProducto = function(p) {
-			if (!$rootScope.carrito)
-				$rootScope.carrito = [];
+			var carrito = sessionStorage.carrito;
+
+			if (!carrito)
+				carrito = [];
+			else
+				carrito = JSON.parse(carrito);
 
 			var encontrado = false;
-			for (var i in $rootScope.carrito) {
-				var c = $rootScope.carrito[i];
+			for (var i in carrito) {
+				var c = carrito[i];JSON.stringify(carrito)
 
 				if (c.id == p.id) {
 					var total = c.cantidad + p.cantidad;
 
 					if (total <= 0)
-						$rootScope.carrito.splice(i, 1);
+						carrito.splice(i, 1);
 					else
 						c.cantidad = total;
 
@@ -28,7 +32,18 @@
 			}
 
 			if (!encontrado)
-				$rootScope.carrito.push(p);
+				carrito.push(p);
+
+			sessionStorage.carrito = JSON.stringify(carrito);
 		};
-	};
+
+		this.obtenerProductos = function() {
+			var carrito = sessionStorage.carrito;
+
+			if (!carrito)
+				return [];
+			else
+				return JSON.parse(carrito);
+		};
+	}
 })();

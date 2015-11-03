@@ -17,7 +17,8 @@
 		});
 
 		$routeProvider.when('/carrito', {
-			templateUrl: 'carrito.html'
+			templateUrl: 'carrito.html',
+			controller: 'CarritoController'
 		});
 
 		$routeProvider.otherwise('/');
