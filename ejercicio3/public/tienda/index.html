@@ -2,13 +2,27 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="/stylesheets/bootstrap.css">
+	<style>
+		.header-bar-left {
+			float: left; 
+			width: 50%;
+		}
+		.header-bar-right {
+			float: left; 
+			width: 50%;
+			text-align: right;
+		}
+	</style>
 </head>
 <body>
 	<div class="container">
-		<a href="#/">Inicio</a>&nbsp;
-		<a href="#/producto">Producto</a>&nbsp;
-		<a href="#/catalogo">Catálogo</a>&nbsp;
-		<a href="#/carrito">Carrito</a>
+		<div class="header-bar-left">
+			<a href="#/">Catálogo</a>&nbsp;
+			<a href="#/carrito">Carrito</a>
+		</div>
+		<div class="header-bar-right">
+			<a href="#/producto" class="text-right">Producto</a>
+		</div>
 
 		<div ng-view></div>
 	</div>
@@ -21,7 +35,9 @@
 	<script src="/javascripts/app.js"></script>
 	<script src="/javascripts/routes.js"></script>
 	<script src="/javascripts/service/producto.js"></script>
+	<script src="/javascripts/service/carrito.js"></script>
 	<script src="/javascripts/controller/producto.js"></script>
+	<script src="/javascripts/controller/catalogo.js"></script>
 </body>
 </html>
 
