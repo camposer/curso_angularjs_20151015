@@ -11,6 +11,13 @@
 		};
 
 		init();
+
+		$scope.comprar = function() {
+			for (var i in $scope.carrito) 
+				carritoService.comprar($scope.carrito[i], function() {
+					delete $scope.carrito;
+				});
+		};
 	};
 
 })();

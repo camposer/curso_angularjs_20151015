@@ -11,14 +11,19 @@
 			controller: 'CatalogoController'
 		});
 
+		$routeProvider.when('/carrito', {
+			templateUrl: 'carrito.html',
+			controller: 'CarritoController'
+		});
+
 		$routeProvider.when('/producto', {
 			templateUrl: 'producto.html',
 			controller: 'ProductoController'
 		});
 
-		$routeProvider.when('/carrito', {
-			templateUrl: 'carrito.html',
-			controller: 'CarritoController'
+		$routeProvider.when('/reporte', {
+			templateUrl: 'reporte.html',
+			controller: 'ReporteController'
 		});
 
 		$routeProvider.otherwise('/');
